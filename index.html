@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NOVARA</title><meta name="theme-color" content="#1e1b6b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#f6f4fc;--card:#fff;--tx:#1a1740;--mu:#68648a;--p:#5b21b6;--p2:#1e1b6b;--g:#d4a017;--bd:#e4def5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#130f20;--card:#1d1830;--tx:#f1edff;--mu:#a49fc0;--bd:#2d2647}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#130f20;--card:#1d1830;--tx:#f1edff;--mu:#a49fc0;--bd:#2d2647}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;padding-bottom:84px}
+header{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 20px 20px}
+header b{font-size:18px}header span{font-size:13px;opacity:.9}
+main{padding:14px;max-width:640px;margin:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:12px}
+.row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+input,textarea,select{flex:1;min-width:0;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:10px;font:inherit}
+textarea{width:100%;min-height:60px}
+button{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:0;border-radius:12px;padding:10px 14px;font:inherit;cursor:pointer}
+button.g{background:var(--bg);color:var(--tx);border:1px solid var(--bd)}
+.chips{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px}
+.chips button{white-space:nowrap}
+.mu{color:var(--mu);font-size:13px}
+img,video{max-width:100%;border-radius:12px;margin-top:8px}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;color:var(--mu);padding:4px 0;font-size:10px;border-radius:10px}
+nav button span{display:block;font-size:20px}
+nav button.on{color:var(--g);background:var(--bg)}
+.msg{padding:8px 12px;border-radius:14px;margin:4px 0;max-width:80%;background:var(--bg)}
+.msg.me{background:var(--p);color:#fff;margin-inline-start:auto}
+.bd{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:260px;margin:10px auto}
+.bd button{height:76px;font-size:30px;background:var(--bg);color:var(--tx);border:1px solid var(--bd)}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.apps a{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px 6px;text-align:center;text-decoration:none;color:var(--tx);font-size:13px;word-break:break-word}
+.apps a i{display:block;font-style:normal;font-size:26px;margin-bottom:4px}
+#toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;right:12px;background:var(--p);color:#fff;padding:12px;border-radius:14px;text-align:center;display:none;z-index:9}
+.tag{font-size:11px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:2px 8px}
+</style><link href='https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap' rel='stylesheet'><style>
+:root{--bg:#f3f0fb;--card:rgba(255,255,255,.8);--tx:#16133a;--mu:#6d6a8d;--p:#6d28d9;--p2:#1e1b6b;--g:#e0b030;--bd:rgba(109,40,217,.12);--sh:0 10px 30px rgba(60,30,140,.12)}
+@media(prefers-color-scheme:dark){:root:not([data-theme='light']){--bg:#0b0919;--card:rgba(34,28,70,.72);--tx:#f3f0ff;--mu:#aaa6cc;--bd:rgba(255,255,255,.09);--sh:0 10px 30px rgba(0,0,0,.45)}.tag{color:#f0c850!important}}
+:root[data-theme='dark']{--bg:#0b0919;--card:rgba(34,28,70,.72);--tx:#f3f0ff;--mu:#aaa6cc;--bd:rgba(255,255,255,.09);--sh:0 10px 30px rgba(0,0,0,.45)}
+body{font-family:'Cairo',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;background:radial-gradient(60% 38% at 100% -4%,rgba(124,58,237,.38),transparent 70%),radial-gradient(50% 30% at 0% 22%,rgba(224,176,48,.2),transparent 70%),var(--bg);background-attachment:fixed;padding-bottom:108px;line-height:1.5}
+header{margin:12px 12px 4px;padding:20px 18px;border-radius:26px;background:linear-gradient(135deg,#6d28d9,#1e1b6b 72%);box-shadow:var(--sh);position:relative;overflow:hidden;align-items:flex-start}
+header:after{content:'';position:absolute;width:160px;height:160px;border-radius:50%;background:radial-gradient(rgba(224,176,48,.55),transparent 70%);left:-40px;top:-60px;pointer-events:none}
+header>*{position:relative;z-index:1}
+header b{font-size:24px;font-weight:800;letter-spacing:2px}
+header select{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 10px}
+header select option{color:#111}
+#hi:not(:empty){display:inline-block;margin-top:8px;background:rgba(255,255,255,.16);border-radius:999px;padding:3px 12px}
+main{padding:14px 14px 0}
+.card{background:var(--card);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--bd);border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+input,textarea,select{border-radius:14px;padding:11px 12px;background:var(--bg);transition:.2s}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--p);box-shadow:0 0 0 3px rgba(109,40,217,.25)}
+button{background:linear-gradient(135deg,#6d28d9,#1e1b6b);border-radius:14px;padding:10px 16px;font-weight:600;box-shadow:0 6px 16px rgba(60,30,140,.28);transition:transform .15s}
+button:active{transform:scale(.95)}
+button.g{background:var(--card);color:var(--tx);border:1px solid var(--bd);box-shadow:none}
+.chips button{border-radius:999px;padding:8px 18px}
+nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));border:1px solid var(--bd);border-radius:28px;background:var(--card);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:6px;box-shadow:0 14px 34px rgba(30,27,107,.3)}
+nav button{border-radius:22px;padding:8px 0;font-size:10px;font-weight:600;box-shadow:none;background:none;color:var(--mu)}
+nav button.on{background:linear-gradient(135deg,#6d28d9,#1e1b6b);color:#fff}
+nav button.on svg{color:var(--g)}
+nav button span{display:block;line-height:0;margin-bottom:4px}
+nav button span svg{display:block;margin:0 auto}
+.msg{border-radius:18px;padding:9px 14px}
+.msg.me{background:linear-gradient(135deg,#6d28d9,#1e1b6b)}
+.tag{background:rgba(224,176,48,.2);color:#9a7400;border:0;border-radius:999px;padding:2px 10px}
+.apps{gap:12px}
+.apps a{background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:24px;box-shadow:var(--sh);padding:18px 6px;font-weight:600;transition:transform .15s}
+.apps a:active{transform:scale(.94)}
+.apps a i{box-shadow:0 8px 16px rgba(0,0,0,.28)}
+.bd button{border-radius:20px;background:var(--card);box-shadow:var(--sh)}
+img,video{border-radius:18px}
+h3{font-weight:800}
+#toast{z-index:40}
+#ov{position:fixed;inset:0;background:rgba(10,8,30,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+#dr{position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(88vw,370px);background:var(--bg);z-index:21;overflow-y:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 14px calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(105%);transition:transform .3s ease;box-shadow:0 0 40px rgba(0,0,0,.4)}
+html[dir=ltr] #dr{transform:translateX(-105%)}
+body.dopen #ov{opacity:1;pointer-events:auto}
+html body.dopen #dr,html[dir=ltr] body.dopen #dr{transform:none}
+.av{flex:none;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#6d28d9,#1e1b6b);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(60,30,140,.3)}
+.pp{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
+.pp button{padding:6px 12px;font-size:13px}
+.sw{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--bd)}
+.sw input{flex:none;width:46px;height:27px;-webkit-appearance:none;appearance:none;border-radius:99px;background:rgba(128,128,160,.35);position:relative;padding:0;border:0;transition:.2s}
+.sw input:checked{background:var(--p)}
+.sw input:after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked:after{inset-inline-start:22px}
+</style></head><body>
+<div id="toast"></div>
+<header><button id=mb onclick="openD()" aria-label="menu" style="flex:none;width:46px;height:46px;padding:0;font-size:22px;background:rgba(255,255,255,.18);box-shadow:none;border:1px solid rgba(255,255,255,.3)"></button><div><b>👑 NOVARA</b><div id=tg style="color:#e9d5a0;font-size:11px"></div></div><div><select id=lg onchange="setLang(this.value)" style="flex:none;padding:4px;font-size:12px"><option value=ar>العربية</option><option value=en>English</option><option value=tr>Türkçe</option><option value=de>Deutsch</option><option value=ja>日本語</option></select> <span id="hi"></span></div></header>
+<main id="v"></main>
+<div id=ov onclick="closeD()"></div><aside id=dr></aside>
+<nav id="nv"></nav>
+<script>
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=i=>document.getElementById(i);
+const BK=[{t:'ليلة الظلال',c:'رعب',x:`انقطعت الكهرباء عن القرية في منتصف الليل. أمسكت سلمى شمعة وخرجت لتتفقد الباب الخلفي.
+
+سمعت خطوات خفيفة في الممر، خطوات تشبه خطواتها تماماً. توقفت، فتوقفت الخطوات. تقدمت، فتقدمت معها.
+
+رفعت الشمعة ببطء نحو المرآة القديمة، فرأت نفسها تبتسم، وهي لم تبتسم بعد.
+
+انطفأت الشمعة. ومن ذلك اليوم، لا تعرف سلمى أيّهما هي التي عادت إلى الغرفة.`},{t:'البيت المهجور',c:'رعب',x:`قال الجيران إن البيت في آخر الحارة مهجور منذ أربعين سنة، لكن النافذة العلوية كانت تضيء كل جمعة.
+
+قرر كريم ورفاقه أن يكشفوا السر. دفعوا الباب الخشبي فانفتح بصرير طويل، وبدا الداخل نظيفاً كأن أحداً يسكنه.
+
+على الطاولة وجدوا خمسة أكواب شاي ما زالت تتصاعد منها الأبخرة، وبجانبها ورقة مكتوب فيها: «تأخرتم يا أولاد، كنا ننتظركم».
+
+أغلق الباب خلفهم من تلقاء نفسه.`},{t:'رسائل المطر',c:'حب',x:`كل يوم ممطر كانت ليلى تجد ورقة صغيرة تحت مظلتها عند محطة الباص، مكتوب فيها جملة دافئة بخط جميل.
+
+لم تعرف من يكتبها، لكنها صارت تنتظر المطر بدل أن تخاف منه.
+
+في اليوم الأخير من الشتاء لم تجد ورقة. وجدت شاباً يحمل مظلة مبللة ويقول بخجل: «نفدت مني الجمل، فجئت بنفسي».
+
+ضحكت ليلى، وللمرة الأولى تمنت ألا يتوقف المطر.`},{t:'قلبان وقدر',c:'حب',x:`التقى آدم ومريم في مكتبة صغيرة، مدّا يديهما معاً إلى الكتاب الأخير على الرف.
+
+قال آدم: «خذيه أنتِ». وقالت مريم: «نقرأه معاً، فصلاً لك وفصلاً لي».
+
+مرّت سنوات، وانتهى ذلك الكتاب، لكنهما ما زالا يقرآن الفصل التالي من حكايتهما كل مساء، وكلما سألهما أحد عن السر قالا: لم نكمل شيئاً وحدنا بعد ذلك اليوم.`},{t:'سباق الصحراء',c:'أكشن',x:`انطلقت السيارات الأربع من نقطة البداية وسط عاصفة من الغبار. كان يزن يعلم أن محركه لن يصمد أكثر من ساعة.
+
+عند الكثبان الكبيرة انقلبت سيارة المتصدر، فأبطأ يزن ليتأكد أن السائق بخير، ثم رفع له إبهامه وانطلق.
+
+في آخر كيلومتر انطفأ محركه تماماً، فدفع السيارة بكتفيه نحو خط النهاية، والجمهور يصرخ باسمه.
+
+لم يفز بالكأس، لكنه فاز بالاحترام الذي لا يُشترى.`},{t:'المطاردة الأخيرة',c:'أكشن',x:`قفز رامي من سطح إلى سطح، والطائرة المسيّرة تلاحقه فوق أضواء المدينة. كان في جيبه مفتاح الخزنة الذي يريده الجميع.
+
+دخل زقاقاً ضيقاً، وانزلق تحت شاحنة متحركة، وخرج من الجهة الأخرى قبل أن تدرك المسيّرة أين اختفى.
+
+وصل إلى الميناء، وسلّم المفتاح لضابطة تنتظره بابتسامة متعبة. قالت: «انتهت المطاردة». أجاب وهو يلهث: «بل بدأ الفصل الثاني».`}];
+const AC={'واتساب':'#25d366','يوتيوب':'#ff0033','إنستغرام':'linear-gradient(45deg,#f9a825,#e1306c,#833ab4)','تيك توك':'#111','فيسبوك':'#1877f2','الخرائط':'#34a853','تلغرام':'#229ed9','جيميل':'#ea4335','ترجمة':'#4285f4'};
+let S={user:'',chats:[{id:1,name:'العائلة',g:1,m:[{me:0,t:'أهلاً بالجميع 👋'}]},{id:2,name:'صديقي',g:0,m:[]}],tasks:[],posts:[],
+books:BK,
+apps:[['واتساب','https://wa.me/','💬'],['يوتيوب','https://youtube.com','▶️'],['إنستغرام','https://instagram.com','📷'],['تيك توك','https://tiktok.com','🎵'],['فيسبوك','https://facebook.com','👥'],['الخرائط','https://maps.google.com','🗺️'],['تلغرام','https://web.telegram.org','✈️'],['جيميل','https://mail.google.com','✉️'],['ترجمة','https://translate.google.com','🌐']],best:0,prof:{un:'',bio:'',av:'🦁'},set:{theme:'auto',sound:1,notif:1},pv:{priv:0,msg:'all',online:1,fl:1},people:[{n:'سارة أحمد',u:'sara',av:'🦋',b:'أحب الكتب والقهوة',f:0},{n:'يوسف',u:'yousef',av:'🚀',b:'مبرمج ولاعب',f:0},{n:'Mika',u:'mika',av:'🌸',b:'日本からこんにちは',f:0},{n:'Emre',u:'emre',av:'⚽',b:'Istanbul',f:0},{n:'Lena',u:'lena',av:'🎨',b:'Berlin',f:0}]};
+try{const d=localStorage.getItem('sa2');if(d)S={...S,...JSON.parse(d)}}catch(e){}
+const save=()=>{try{localStorage.setItem('sa2',JSON.stringify(S,(k,v)=>k==='media'?undefined:v))}catch(e){}};
+let rb=null,fs=18,tab='home',oc=null,cat='الكل',reels=[],B=Array(9).fill(''),tp={n:0,run:0},tpT=null;
+const CATS=['الكل','رعب','حب','أكشن'];
+const TONES={'رنين':[[880,.15],[1100,.15],[880,.15]],'نسيم':[[523,.25],[659,.25],[784,.35]],'منبه':[[1000,.1],[0,.05],[1000,.1],[0,.05],[1000,.1]]};
+function play(n){if(!S.set.sound)return;try{const c=new(window.AudioContext||window.webkitAudioContext)();let t=c.currentTime;(TONES[n]||TONES['رنين']).forEach(([f,d])=>{if(f){const o=c.createOscillator(),g=c.createGain();o.frequency.value=f;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(.2,t);o.start(t);o.stop(t+d)}t+=d+.03})}catch(e){}}
+function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',4000)}
+setInterval(()=>{let ch=0;S.tasks.forEach(k=>{if(!k.done&&!k.fired&&k.at&&new Date(k.at).getTime()<=Date.now()){k.fired=1;ch=1;play(k.tone);toast('⏰ '+k.t);try{if(S.set.notif&&Notification.permission==='granted')new Notification('تذكير',{body:k.t})}catch(e){}}});if(ch){save();if(tab==='tasks')render()}},10000);
+const chips=()=>`<div class=chips>${CATS.map(c=>`<button class="${c===cat?'':'g'}" onclick="cat='${c}';render()">${c}</button>`).join('')}</div>`;
+const val=i=>$(i)?$(i).value.trim():'';
+function setUser(){const n=val('nm');if(!n)return;S.user=n;save();render()}
+function post(){const t=val('pt'),f=$('pf').files[0];if(!t&&!f)return;const p={a:S.user,t};if(f){p.media=URL.createObjectURL(f);p.ty=f.type.startsWith('video')?'v':'i'}S.posts.unshift(p);save();render()}
+async function share(t){try{if(navigator.share)await navigator.share({text:t});else{await navigator.clipboard.writeText(t);toast('تم النسخ، الصقه بأي تطبيق')}}catch(e){}}
+function home(){let h='';
+if(!S.user)h+=`<div class=card><b>أنشئ حسابك</b><div class=row><input id=nm placeholder="اسمك"><button onclick="setUser()">ابدأ</button></div></div>`;
+else h+=`<div class=card><textarea id=pt placeholder="اكتب اقتباساً أو فكرة…"></textarea><div class=row><input id=pf type=file accept="image/*,video/*"><button onclick="post()">نشر</button></div></div>`;
+if(!S.posts.length)h+=`<p class=mu>ما في منشورات بعد. انشر أول اقتباس أو صورة.</p>`;
+S.posts.forEach((p,i)=>{h+=`<div class=card><b>${esc(p.a)}</b><p>${esc(p.t)}</p>${p.media?(p.ty==='v'?`<video src="${p.media}" controls></video>`:`<img src="${p.media}">`):''}<div class=row><button class=g onclick="share(S.posts[${i}].t)">↗️ مشاركة</button><button class=g onclick="S.posts.splice(${i},1);save();render()">🗑️</button></div></div>`});return h}
+function chat(){if(oc===null)return `<div class=card><b>محادثة جديدة</b><div class=row><input id=cn placeholder="الاسم"><select id=cg style="flex:0 0 90px"><option value=0>فردية</option><option value=1>جماعية</option></select><button onclick="addChat()">إضافة</button></div></div>`+S.chats.map((c,i)=>`<div class=card onclick="oc=${i};render()" style="cursor:pointer"><b>${c.g?'👥':'👤'} ${esc(c.name)}</b><div class=mu>${c.m.length?esc(c.m[c.m.length-1].t):'ابدأ المحادثة'}</div></div>`).join('');
+const c=S.chats[oc];return `<div class=row style="margin:0 0 10px"><button class=g onclick="oc=null;render()">→ رجوع</button><b>${esc(c.name)}</b></div><div class=card>${c.m.map(m=>`<div class="msg ${m.me?'me':''}">${esc(m.t)}</div>`).join('')||'<span class=mu>لا رسائل بعد</span>'}</div><div class=row><input id=mi placeholder="اكتب رسالة…"><button onclick="send()">إرسال</button></div>`}
+function addChat(){const n=val('cn');if(!n)return;S.chats.push({id:Date.now(),name:n,g:+$('cg').value,m:[]});save();render()}
+function send(){const t=val('mi');if(!t)return;S.chats[oc].m.push({me:1,t});save();render()}
+function tasks(){return `<div class=card><input id=tt placeholder="شو المهمة؟" style="width:100%"><div class=row><input id=ta type=datetime-local><select id=tn>${Object.keys(TONES).map(k=>`<option>${k}</option>`).join('')}</select></div><div class=row><button onclick="addTask()">إضافة</button><button class=g onclick="play(val('tn'))">🔊 جرّب النغمة</button><button class=g onclick="try{Notification.requestPermission().then(()=>toast('تم'))}catch(e){}">🔔 تفعيل الإشعارات</button></div></div>`+(S.tasks.length?S.tasks.map((k,i)=>`<div class=card><label><input type=checkbox style="flex:none" ${k.done?'checked':''} onchange="S.tasks[${i}].done=this.checked;save();render()"> <span style="${k.done?'text-decoration:line-through':''}">${esc(k.t)}</span></label><div class=mu>${k.at?esc(k.at.replace('T',' ')):'بدون وقت'} · ${esc(k.tone)} ${k.fired?'· ✅ تم التنبيه':''} <button class=g style="float:left;padding:2px 8px" onclick="S.tasks.splice(${i},1);save();render()">🗑️</button></div></div>`).join(''):'<p class=mu>لا مهام. أضف مهمة مع وقت وسيصلك تنبيه بالنغمة التي تختارها (والتطبيق مفتوح).</p>')}
+function addTask(){const t=val('tt');if(!t)return;S.tasks.push({t,at:val('ta'),tone:val('tn'),done:0});save();render()}
+function books(){if(rb!==null){const b=S.books[rb];return `<div class=row style="margin:0 0 10px"><button class=g onclick="rb=null;render()">→ رجوع</button><button class=g onclick="fs=Math.min(30,fs+2);render()">أ+</button><button class=g onclick="fs=Math.max(13,fs-2);render()">أ-</button></div><div class=card><h3 style="margin-top:0">${esc(b.t)}</h3><div style="font-size:${fs}px;line-height:1.9;white-space:pre-wrap">${esc(b.x||'لا يوجد نص لهذا الكتاب بعد.')}</div></div>`}return chips()+`<div class=card>`+S.books.filter(b=>cat==='الكل'||b.c===cat).map(b=>`<div onclick="rb=${S.books.indexOf(b)};render()" style="cursor:pointer;padding:8px 0;border-bottom:1px solid var(--bd)">📖 ${esc(b.t)} <span class=tag>${b.c}</span></div>`).join('')+`</div><div class=card><b>أضف كتاباً أو قصة</b><textarea id=bx placeholder="الصق نص القصة هنا"></textarea><div class=row><input id=bt placeholder="العنوان"><select id=bc style="flex:0 0 80px">${CATS.slice(1).map(c=>`<option>${c}</option>`).join('')}</select><button onclick="addBook()">إضافة</button></div></div>`}
+function addBook(){const t=val('bt');if(!t)return;S.books.push({t,c:val('bc'),x:val('bx')});save();render()}
+function reel(){const l=reels.filter(r=>cat==='الكل'||r.c===cat);return chips()+`<div class=card><div class=row style="margin:0"><input id=rf type=file accept="video/*"><select id=rc style="flex:0 0 80px">${CATS.slice(1).map(c=>`<option>${c}</option>`).join('')}</select><button onclick="addReel()">رفع</button></div></div>`+(l.length?l.map(r=>`<div class=card><span class=tag>${r.c}</span><video src="${r.u}" controls playsinline></video></div>`).join(''):'<p class=mu>ارفع فيديو قصير ليظهر هنا.</p>')}
+function addReel(){const f=$('rf').files[0];if(!f)return;reels.unshift({u:URL.createObjectURL(f),c:val('rc')});render()}
+function win(b){return[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(l=>b[l[0]]&&b[l[0]]===b[l[1]]&&b[l[1]]===b[l[2]])}
+function ai(){const L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(const m of['⭕','❌'])for(const l of L){const v=l.map(i=>B[i]);if(v.filter(x=>x===m).length===2&&v.includes(''))return l[v.indexOf('')]}if(!B[4])return 4;const e=B.map((v,k)=>v?-1:k).filter(k=>k>=0);return e[Math.floor(Math.random()*e.length)]}
+function mv(i){if(B[i]||win(B))return;B[i]='❌';if(!win(B)){if(B.some(x=>!x))B[ai()]='⭕'}render()}
+function tap(){if(!tp.run)return;tp.n++;$('tn2').textContent=tp.n}
+function startTap(){tp={n:0,run:1};clearTimeout(tpT);tpT=setTimeout(()=>{tp.run=0;if(tp.n>S.best){S.best=tp.n;save()}toast('انتهى! نتيجتك: '+tp.n);render()},10000);render()}
+const EM=['🦁','🚀','🌙','🔥','🍕','⚽'];let M=null,sn=null,snT=null;
+function newMem(){M={c:[...EM,...EM].sort(()=>Math.random()-.5),o:[],f:[],n:0,l:0};render()}
+function flip(i){if(!M||M.l||M.o.includes(i)||M.f.includes(i))return;M.o.push(i);if(M.o.length===2){M.n++;M.l=1;const[a,b]=M.o;setTimeout(()=>{if(M.c[a]===M.c[b])M.f.push(a,b);M.o=[];M.l=0;render()},700)}render()}
+function startSnake(){clearInterval(snT);sn={b:[[7,7],[6,7],[5,7]],d:[1,0],f:[10,7],s:0,alive:1};snT=setInterval(stepSn,140);render()}
+function dir(x,y){if(sn&&(x!==-sn.d[0]||y!==-sn.d[1]))sn.d=[x,y]}
+function stepSn(){const c=$('cv');if(!c){clearInterval(snT);return}if(!sn||!sn.alive)return;const h=[sn.b[0][0]+sn.d[0],sn.b[0][1]+sn.d[1]];if(h[0]<0||h[1]<0||h[0]>13||h[1]>13||sn.b.some(p=>p[0]===h[0]&&p[1]===h[1])){sn.alive=0;clearInterval(snT);toast('انتهت اللعبة! نقاطك: '+sn.s);return}sn.b.unshift(h);if(h[0]===sn.f[0]&&h[1]===sn.f[1]){sn.s++;sn.f=[Math.floor(Math.random()*14),Math.floor(Math.random()*14)]}else sn.b.pop();const x=c.getContext('2d');x.fillStyle='#1e1b6b';x.fillRect(0,0,280,280);x.fillStyle='#d4a017';x.fillRect(sn.f[0]*20,sn.f[1]*20,18,18);x.fillStyle='#a78bfa';sn.b.forEach(p=>x.fillRect(p[0]*20,p[1]*20,18,18));$('sc').textContent=sn.s}
+function games(){const w=win(B),f=B.every(x=>x);return `<div class=card><b>❌⭕ إكس أو ضد الكمبيوتر</b><div class=bd>${B.map((v,i)=>`<button onclick="mv(${i})">${v}</button>`).join('')}</div><div class=row><span class=mu>${w?'انتهت اللعبة 🎉':f?'تعادل':'دورك'}</span><button class=g onclick="B=Array(9).fill('');render()">لعبة جديدة</button></div></div><div class=card><b>⚡ سرعة الضغط (10 ثواني)</b><div class=row><button onclick="tap()" style="flex:1;height:70px;font-size:22px">اضغط! <span id=tn2>${tp.n}</span></button></div><div class=row><button class=g onclick="startTap()">ابدأ</button><span class=mu>أفضل نتيجة: ${S.best}</span></div></div><div class=card><b>🧠 لعبة الذاكرة</b>${M?`<div class=bd style="grid-template-columns:repeat(4,1fr);max-width:300px">${M.c.map((e,i)=>`<button style="height:64px;font-size:26px" onclick="flip(${i})">${M.o.includes(i)||M.f.includes(i)?e:'❓'}</button>`).join('')}</div><div class=mu>المحاولات: ${M.n} ${M.f.length===12?'· 🎉 فزت!':''}</div>`:''}<div class=row><button class=g onclick="newMem()">${M?'إعادة':'ابدأ'}</button></div></div><div class=card><b>🐍 الأفعى</b><div style="text-align:center;margin-top:8px"><canvas id=cv width=280 height=280 style="border-radius:12px;max-width:100%;background:#1e1b6b"></canvas></div><div class=mu style="text-align:center">النقاط: <span id=sc>${sn?sn.s:0}</span></div><div dir=ltr style="display:grid;grid-template-columns:repeat(3,64px);gap:6px;justify-content:center;margin:8px 0"><i></i><button onclick="dir(0,-1)">⬆️</button><i></i><button onclick="dir(-1,0)">⬅️</button><button onclick="dir(0,1)">⬇️</button><button onclick="dir(1,0)">➡️</button></div><div class=row><button onclick="startSnake()">ابدأ</button></div></div><p class=mu>الألعاب الأونلاين بين لاعبين تحتاج سيرفر، وهي الخطوة التالية.</p>`}
+function apps(){return `<div class=apps>${S.apps.map(a=>`<a href="${esc(a[1])}" target="_blank" rel="noopener"><i style="background:${AC[a[0]]||'linear-gradient(135deg,#5b21b6,#1e1b6b)'};width:54px;height:54px;line-height:54px;border-radius:16px;margin:0 auto 6px;color:#fff">${a[2]||'🔗'}</i>${esc(a[0])}</a>`).join('')}</div><div class=card style="margin-top:12px"><b>أضف تطبيقك أو موقعك</b><div class=row><input id=an placeholder="الاسم"><input id=au placeholder="الرابط" dir=ltr></div><div class=row><button onclick="addApp()">إضافة</button></div></div>`}
+function addApp(){let n=val('an'),u=val('au');if(!n||!u)return;if(!/^https?:\/\//.test(u))u='https://'+u;S.apps.push([n,u,'🔗']);save();render()}
+const TABS=[['home','🏠','الرئيسية',home],['chat','💬','دردشة',chat],['tasks','⏰','مهام',tasks],['books','📚','مكتبة',books],['reels','🎬','ريلز',reel],['games','🎮','ألعاب',games],['apps','🧩','تطبيقاتي',apps]];
+const NL={ar:['الرئيسية','دردشة','مهام','مكتبة','ريلز','ألعاب','تطبيقاتي'],en:['Home','Chat','Tasks','Library','Reels','Games','My apps'],tr:['Ana sayfa','Sohbet','Görevler','Kitaplık','Reels','Oyunlar','Uygulamalarım'],de:['Start','Chat','Aufgaben','Bibliothek','Reels','Spiele','Meine Apps'],ja:['ホーム','チャット','タスク','ライブラリ','リール','ゲーム','マイアプリ']};
+const TG={ar:'عالمك كله في مكان واحد',en:'Your World, All in One Place',tr:'Tüm dünyan tek yerde',de:'Deine ganze Welt an einem Ort',ja:'あなたの世界をひとつの場所に'};
+const sv=p=>`<svg viewBox='0 0 24 24' width='23' height='23' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>${p}</svg>`;
+const IC={home:sv(`<path d='M3 11l9-8 9 8'/><path d='M5 10v10h14V10'/>`),chat:sv(`<path d='M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-5.4A8 8 0 1 1 21 12z'/>`),tasks:sv(`<circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/>`),books:sv(`<path d='M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z'/><path d='M4 21V5'/>`),reels:sv(`<rect x='3' y='3' width='18' height='18' rx='4'/><path d='M10 8.5v7l6-3.5z'/>`),games:sv(`<rect x='2' y='7' width='20' height='11' rx='5'/><path d='M7 10v5M4.5 12.5h5'/><circle cx='16' cy='11.5' r='1'/><circle cx='18.5' cy='14' r='1'/>`),apps:sv(`<rect x='3' y='3' width='7' height='7' rx='2'/><rect x='14' y='3' width='7' height='7' rx='2'/><rect x='3' y='14' width='7' height='7' rx='2'/><rect x='14' y='14' width='7' height='7' rx='2'/>`)};
+let ds='me',cf=0;
+function applyTheme(){const t=S.set.theme;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t)}
+function openD(s){if(s)ds=s;cf=0;document.body.classList.add('dopen');drawer()}
+function closeD(){document.body.classList.remove('dopen')}
+function dsw(s){ds=s;cf=0;drawer()}
+function chg(o,k,v){S[o][k]=v;if(o==='set'&&k==='notif'&&v){try{Notification.requestPermission()}catch(e){}}save();applyTheme();drawer()}
+const tgl=(o,k,l,d)=>`<label class=sw><span>${l}${d?`<small class=mu style="display:block">${d}</small>`:''}</span><input type=checkbox ${S[o][k]?'checked':''} onchange="chg('${o}','${k}',+this.checked)"></label>`;
+function saveMe(){S.user=val('pn');S.prof.un=val('pu').toLowerCase().replace(/[^a-z0-9_]/g,'');S.prof.bio=val('pb');save();render();drawer();toast('تم حفظ الملف الشخصي ✅')}
+function setAv(a){S.prof.av=a;save();render();drawer()}
+function fol(i){S.people[i].f=S.people[i].f?0:1;save();drawer()}
+function blk(i){S.people[i].bk=S.people[i].bk?0:1;if(S.people[i].bk)S.people[i].f=0;save();drawer()}
+function addP(){const u=val('pq').toLowerCase().replace(/^@/,'').replace(/[^a-z0-9_]/g,'');if(!u){toast('اكتب اسم مستخدم بالأحرف الإنجليزية');return}if(S.people.some(p=>p.u===u)){toast('الحساب موجود بالفعل');return}const A=['🐯','🦊','🐼','🌟','🎧','🔥','🍀'];S.people.unshift({n:u,u,av:A[Math.floor(Math.random()*A.length)],b:'',f:1});save();drawer()}
+function msgP(i){const p=S.people[i];let k=S.chats.findIndex(c=>c.name===p.n);if(k<0){S.chats.push({id:Date.now(),name:p.n,g:0,m:[]});k=S.chats.length-1;save()}closeD();go('chat');oc=k;render()}
+function wipe(){if(!cf){cf=1;drawer();return}try{localStorage.removeItem('sa2')}catch(e){}location.reload()}
+const prow=(p,i)=>`<div class=pp><div class=av>${p.av}</div><div style="flex:1;min-width:0"><b>${esc(p.n)}</b> <span class=mu>@${esc(p.u)}</span><div class=mu>${esc(p.b||'')}</div></div><div style="display:flex;flex-direction:column;gap:4px"><button class="${p.f?'g':''}" onclick="fol(${i})">${p.f?'تتابعه ✓':'متابعة'}</button><div style="display:flex;gap:4px"><button class=g onclick="msgP(${i})">💬</button><button class=g onclick="blk(${i})">🚫</button></div></div></div>`;
+function drawer(){const P=S.prof,T=[['me','👤','حسابي'],['ppl','👥','الأشخاص'],['set','⚙️','الإعدادات'],['pv','🔒','الخصوصية']];
+let h=`<div class=row style="margin:0 0 12px;align-items:center;flex-wrap:nowrap"><div class=av style="width:56px;height:56px;font-size:30px">${P.av}</div><div style="flex:1;min-width:0"><b>${esc(S.user||'مستخدم جديد')}</b><div class=mu>${P.un?'@'+esc(P.un):'أنشئ اسم مستخدم'}</div></div><button class=g onclick="closeD()">✕</button></div><div class=chips>${T.map(t=>`<button class="${t[0]===ds?'':'g'}" onclick="dsw('${t[0]}')">${t[1]} ${t[2]}</button>`).join('')}</div>`;
+if(ds==='me'){h+=`<div class=card><b>الصورة الرمزية</b><div class=row>${['🦁','🚀','🌙','🦋','🔥','🎧','🐼','👑'].map(a=>`<button class=g style="font-size:22px;padding:6px 10px" onclick="setAv('${a}')">${a}</button>`).join('')}</div></div><div class=card><div class=mu>الاسم</div><input id=pn value="${esc(S.user)}" style="width:100%"><div class=mu style="margin-top:8px">اسم المستخدم</div><input id=pu value="${esc(P.un)}" dir=ltr placeholder=username style="width:100%"><div class=mu style="margin-top:8px">نبذة عنك</div><textarea id=pb>${esc(P.bio)}</textarea><div class=row><button onclick="saveMe()">حفظ</button></div></div><div class=card><div class=row style="margin:0;justify-content:space-around;text-align:center"><div><b>${S.posts.length}</b><div class=mu>منشورات</div></div><div><b>${S.people.filter(p=>p.f).length}</b><div class=mu>تتابعهم</div></div><div><b>${S.chats.length}</b><div class=mu>محادثات</div></div></div></div>`}
+else if(ds==='ppl'){const f=S.people.map((p,i)=>[p,i]).filter(x=>!x[0].bk);h+=`<div class=card><div class=row style="margin:0"><input id=pq placeholder=@username dir=ltr><button onclick="addP()">إضافة</button></div></div><b>تتابعهم</b><div class=card>${f.filter(x=>x[0].f).map(x=>prow(x[0],x[1])).join('')||'<span class=mu>لا أحد بعد</span>'}</div><b>اقتراحات</b><div class=card>${f.filter(x=>!x[0].f).map(x=>prow(x[0],x[1])).join('')||'<span class=mu>لا اقتراحات</span>'}</div><p class=mu>الحسابات هنا تجريبية حتى نربط التطبيق بسيرفر حقيقي.</p>`}
+else if(ds==='set'){h+=`<div class=card><b>المظهر</b><div class=chips style="margin-top:8px">${[['auto','تلقائي'],['light','فاتح'],['dark','داكن']].map(t=>`<button class="${S.set.theme===t[0]?'':'g'}" onclick="chg('set','theme','${t[0]}')">${t[1]}</button>`).join('')}</div><div class=mu>اللغة</div><select onchange="setLang(this.value);drawer()" style="width:100%">${[['ar','العربية'],['en','English'],['tr','Türkçe'],['de','Deutsch'],['ja','日本語']].map(l=>`<option value=${l[0]} ${(S.lang||'ar')===l[0]?'selected':''}>${l[1]}</option>`).join('')}</select></div><div class=card>${tgl('set','notif','الإشعارات','تنبيهات المهام والرسائل')}${tgl('set','sound','النغمات والأصوات')}</div><div class=card><b>البيانات</b><div class=mu>حذف كل بياناتك المحفوظة على هذا الجهاز.</div><div class=row><button class=g style="color:#e11d48" onclick="wipe()">${cf?'اضغط للتأكيد ⚠️':'🗑️ حذف بياناتي'}</button></div></div>`}
+else{h+=`<div class=card>${tgl('pv','priv','حساب خاص','المتابعة بموافقتك فقط')}${tgl('pv','online','إظهار حالة الاتصال')}${tgl('pv','fl','إظهار قائمة من تتابعهم')}</div><div class=card><b>من يستطيع مراسلتي؟</b><select onchange="chg('pv','msg',this.value)" style="width:100%;margin-top:8px">${[['all','الجميع'],['fol','من أتابعهم فقط'],['none','لا أحد']].map(o=>`<option value=${o[0]} ${S.pv.msg===o[0]?'selected':''}>${o[1]}</option>`).join('')}</select></div><div class=card><b>المحظورون</b>${S.people.map((p,i)=>p.bk?`<div class=pp><div class=av>${p.av}</div><div style="flex:1"><b>${esc(p.n)}</b></div><button class=g onclick="blk(${i})">إلغاء الحظر</button></div>`:'').join('')||'<div class=mu>لا أحد</div>'}</div>`}
+$('dr').innerHTML=h}
+function setLang(l){S.lang=l;save();render()}
+function go(t){rb=null;tab=t;oc=null;cat='الكل';render()}
+function render(){const lg=S.lang||'ar';document.documentElement.lang=lg;document.documentElement.dir=lg==='ar'?'rtl':'ltr';$('lg').value=lg;$('tg').textContent=TG[lg];$('mb').textContent=S.prof.av;applyTheme();$('hi').textContent=S.user?'👤 '+S.user:'';const x=TABS.find(t=>t[0]===tab);$('v').innerHTML=x[3]();$('nv').innerHTML=TABS.map(t=>`<button class="${t[0]===tab?'on':''}" onclick="go('${t[0]}')"><span>${IC[t[0]]}</span>${NL[S.lang||'ar'][TABS.indexOf(t)]}</button>`).join('')}
+render();
+</script><script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{})</script></body></html>
